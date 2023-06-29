@@ -1,4 +1,4 @@
-#MyTodoList
+<h2>MyTodoList</h2>
 리액트 1주차 시험
 # Getting Started with Create React App
 
