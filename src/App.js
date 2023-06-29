@@ -1,23 +1,59 @@
-import logo from './logo.svg';
+import React, {useState, useRef} from 'react';
 import './App.css';
 
 function App() {
+  const [title, setTitle] = useState("");
+  
+  const onChange = (e) => {
+    setTitle(e.target.value);
+  };
+  
+  const [todos, setTodo] = useState([
+    { id: 1, title: "todolist 만들기"},
+  ]);
+
+  
+  const nextId =useRef(2);
+
+  const addbtn = () => {
+    
+    if(title === '') {
+      alert('할일을 입력해주세요.');
+      return;
+    }
+
+    const todo = {
+      id: nextId.current,
+      title: title,
+    };
+    setTodo(todos.concat(todo));
+    setTitle("")
+    nextId.current += 1;
+    console.log(todos)
+  };
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        className='todoinput'
+        type='text' 
+        placeholder="할일을 입력하세요"
+        onChange={onChange}
+        value={title}
+        />
+      <button onClick={addbtn}>추가하기</button>
+      <h2>Todo List</h2>
+      <div className="list-wrapper">
+      <div className="list-container">
+      {todos
+          .map((todo) => {
+            return (
+              <div className="todo-container">
+                {todo.title}
+              </div>
+      )})}
+      </div>
+      </div> 
     </div>
   );
 }
